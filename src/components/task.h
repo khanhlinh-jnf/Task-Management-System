@@ -15,6 +15,7 @@ class Task : public TaskComponent {
   std::string dueDate;
 
  public:
+  Task();
   Task(int id, std::string title, std::string description, std::string assignee,
        std::string status, std::string dueDate)
       : id(id),
