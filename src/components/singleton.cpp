@@ -1,42 +1,33 @@
 #include "singleton.h"
 
-TaskManager::TaskManager() {
-  tasks = {};
-}
-
-TaskManager* TaskManager::instance = 0;
+TaskManager* TaskManager::instance = nullptr;
 
 TaskManager* TaskManager::getInstance() {
-  if (!instance) {
-	instance = new TaskManager();
+  if (instance == nullptr) {
+    instance = new TaskManager();
   }
   return instance;
 }
 
-void TaskManager::addTask(Task task) {
-  tasks.push_back(task);
-}
+void TaskManager::addTask(TaskComponent* task) { tasks.push_back(task); }
 
 void TaskManager::removeTask(int taskId) {
-  for (int i = 0; i < tasks.size(); i++) {
-	if (tasks[i].getId() == taskId) {
-	  tasks.erase(tasks.begin() + i);
-	  break;
-	}
-  }
+  tasks.erase(std::remove_if(tasks.begin(), tasks.end(),
+                             [taskId](TaskComponent* task) {
+                               Task* t = dynamic_cast<Task*>(task);
+                               return t && t->getId() == taskId;
+                             }),
+              tasks.end());
 }
 
-Task* TaskManager::getTask(int taskId) {
-  for (int i = 0; i < tasks.size(); i++) {
-	if (tasks[i].getId() == taskId) {
-	  return &tasks[i];
-	}
+TaskComponent* TaskManager::getTask(int taskId) {
+  for (TaskComponent* task : tasks) {
+    Task* t = dynamic_cast<Task*>(task);
+    if (t && t->getId() == taskId) {
+      return t;
+    }
   }
   return nullptr;
 }
 
-vector<Task> TaskManager::getAllTasks() {
-  return tasks;
-}
-
-
+std::vector<TaskComponent*> TaskManager::getAllTasks() { return tasks; }
