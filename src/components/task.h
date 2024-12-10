@@ -31,6 +31,15 @@ class Task : public TaskComponent {
   std::string getStatus() const { return status; }
   std::string getDueDate() const { return dueDate; }
 
+  void setId(int id) { this->id = id; }
+  void setTitle(const std::string& title) { this->title = title; }
+  void setDescription(const std::string& description) {
+    this->description = description;
+  }
+  void setAssignee(const std::string& assignee) { this->assignee = assignee; }
+  void setStatus(const std::string& status) { this->status = status; }
+  void setDueDate(const std::string& dueDate) { this->dueDate = dueDate; }
+
   void display() const override {
     std::cout << "Task ID: " << id << ", Title: " << title
               << ", Description: " << description << ", Assignee: " << assignee
