@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-  // TaskManager* taskManager = TaskManager::getInstance();
+  TaskManager* taskManager = TaskManager::getInstance();
 
   // Task* task1 = new Task(1, "Task 1", "Description 1", "Assignee 1", "Status 1",
   //                        "Due Date 1");
@@ -29,20 +29,25 @@ int main() {
 
   // delete taskManager;  // Ensure to delete the singleton instance if necessary
 
-  TaskBuilder builder;
-  std::unique_ptr<Task> task = builder.setId(1)
-                                      .setTitle("Implement Builder Pattern")
-                                      .setDescription("Create a builder for the Task object.")
-                                      .setAssignee("John Doe")
-                                      .setStatus("In Progress")
-                                      .setDueDate("2024-12-31")
-                                      .build();
+  // TaskBuilder builder;
+  // std::unique_ptr<Task> task = builder.setId(1)
+  //                                     .setTitle("Implement Builder Pattern")
+  //                                     .setDescription("Create a builder for the Task object.")
+  //                                     .setAssignee("John Doe")
+  //                                     .setStatus("In Progress")
+  //                                     .setDueDate("2024-12-31")
+  //                                     .build();
 
-  // Print the task details
-  if (task) {
-    task->display();
-  } else {
-    std::cerr << "Failed to build Task." << std::endl;
-  }
+  // // Print the task details
+  // if (task) {
+  //   task->display();
+  // } else {
+  //   std::cerr << "Failed to build Task." << std::endl;
+  // }
+
+  taskManager->addTask();
+  taskManager->displayAllTasks();
+
+
   return 0;
 }
