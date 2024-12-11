@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Task.h"
+#include <memory>
 
 class TaskBuilder {
  private:
