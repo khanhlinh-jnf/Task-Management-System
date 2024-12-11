@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <vector>
 
 #include "TaskComponent.h"
@@ -34,3 +35,5 @@ class TaskGroup : public TaskComponent {
     }
   }
 };
+
+#include "TaskGroup.cpp"

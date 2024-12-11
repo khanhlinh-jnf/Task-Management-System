@@ -40,3 +40,5 @@ class UpdateTaskCommand : public TaskCommand {
 
   void execute();
 };
+
+#include "TaskCommand.cpp"

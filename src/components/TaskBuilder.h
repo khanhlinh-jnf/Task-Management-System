@@ -1,10 +1,10 @@
 #pragma once
 
-#include "task.h"
+#include "Task.h"
 
 class TaskBuilder {
- protected:
-  Task* task;
+ private:
+  Task task;
 
  public:
   TaskBuilder& setId(int id);
@@ -15,3 +15,5 @@ class TaskBuilder {
   TaskBuilder& setDueDate(const std::string& dueDate);
   Task build();
 };
+
+#include "TaskBuilder.cpp"
