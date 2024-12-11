@@ -12,16 +12,19 @@ using namespace std;
 class TaskManager {
  protected:
   static TaskManager* instance;
+  static int taskId;
   std::vector<TaskComponent*> tasks;
 
  public:
   static TaskManager* getInstance();
   void addTask();
+  void updateTask(int taskId);
   void removeTask(int taskId);
   void displayAllTasks();
 
+
   TaskComponent* getTask(int taskId);
-  //vector<TaskComponent*> getAllTasks() { return tasks; }
+
 };
 
 #include "singleton.cpp"

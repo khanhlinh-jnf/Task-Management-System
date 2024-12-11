@@ -47,6 +47,10 @@ int main() {
 
   taskManager->addTask();
   taskManager->displayAllTasks();
+  taskManager->addTask();
+  taskManager->displayAllTasks();
+  taskManager->updateTask(1);
+  taskManager->displayAllTasks();
 
 
   return 0;
