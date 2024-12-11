@@ -29,8 +29,20 @@ int main() {
 
   // delete taskManager;  // Ensure to delete the singleton instance if necessary
 
- Task task = TaskBuilder().setId(1).setTitle("Task 1").setDescription("Description 1").setAssignee("Assignee 1").setStatus("Status 1").setDueDate("Due Date 1").build();
-  task.display();
+  TaskBuilder builder;
+  std::unique_ptr<Task> task = builder.setId(1)
+                                      .setTitle("Implement Builder Pattern")
+                                      .setDescription("Create a builder for the Task object.")
+                                      .setAssignee("John Doe")
+                                      .setStatus("In Progress")
+                                      .setDueDate("2024-12-31")
+                                      .build();
 
+  // Print the task details
+  if (task) {
+    task->display();
+  } else {
+    std::cerr << "Failed to build Task." << std::endl;
+  }
   return 0;
 }
