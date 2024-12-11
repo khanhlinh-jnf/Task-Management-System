@@ -4,9 +4,8 @@
 
 AddTaskCommand::AddTaskCommand() { taskManager = nullptr; }
 
-AddTaskCommand::AddTaskCommand(TaskManager* _taskManager, Task _task) {
+AddTaskCommand::AddTaskCommand(TaskManager* _taskManager) {
   taskManager = _taskManager;
-  task = _task;
 }
 
 AddTaskCommand::~AddTaskCommand() { taskManager = nullptr; }
@@ -16,16 +15,15 @@ void AddTaskCommand::execute() {
     cout << "Task manager not linked!" << endl;
     return;
   }
-  taskManager->addTask();  // waiting for addTask to be implemented completely.
+  taskManager->addTask(); 
 }
 
 // RemoveTaskCommand implementation
 
 RemoveTaskCommand::RemoveTaskCommand() { taskManager = nullptr; }
 
-RemoveTaskCommand::RemoveTaskCommand(TaskManager* _taskManager, Task _task) {
+RemoveTaskCommand::RemoveTaskCommand(TaskManager* _taskManager) {
   taskManager = _taskManager;
-  task = _task;
 }
 
 RemoveTaskCommand::~RemoveTaskCommand() { taskManager = nullptr; }
@@ -46,9 +44,8 @@ void RemoveTaskCommand::execute() {
 
 UpdateTaskCommand::UpdateTaskCommand() { taskManager = nullptr; }
 
-UpdateTaskCommand::UpdateTaskCommand(TaskManager* _taskManager, Task _task) {
+UpdateTaskCommand::UpdateTaskCommand(TaskManager* _taskManager) {
   taskManager = _taskManager;
-  task = _task;
 }
 
 UpdateTaskCommand::~UpdateTaskCommand() { taskManager = nullptr; }
@@ -62,6 +59,5 @@ void UpdateTaskCommand::execute() {
   int taskID;
   cout << "Please enter task ID to be updated: " << endl;
   cin >> taskID;
-  taskManager->updateTask(
-      task);  // can implement updateTask here or in TaskManager class.
+  taskManager->updateTask(taskID);  
 }

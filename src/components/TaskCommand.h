@@ -9,7 +9,6 @@ using namespace std;
 class TaskCommand {
 	protected:
 		TaskManager* taskManager;
-		Task task;
 	public:
 		virtual void execute() = 0;
 };
@@ -17,7 +16,7 @@ class TaskCommand {
 class AddTaskCommand : public TaskCommand {
  public:
   AddTaskCommand();
-  AddTaskCommand(TaskManager* _TaskManager, Task _task);
+  AddTaskCommand(TaskManager* _TaskManager);
   ~AddTaskCommand();
 
   void execute();
@@ -26,7 +25,7 @@ class AddTaskCommand : public TaskCommand {
 class RemoveTaskCommand : public TaskCommand {
  public:
   RemoveTaskCommand();
-  RemoveTaskCommand(TaskManager* _taskManager, Task _task);
+  RemoveTaskCommand(TaskManager* _taskManager);
   ~RemoveTaskCommand();
 
   void execute();
@@ -35,7 +34,7 @@ class RemoveTaskCommand : public TaskCommand {
 class UpdateTaskCommand : public TaskCommand {
  public:
   UpdateTaskCommand();
-  UpdateTaskCommand(TaskManager* _taskManager, Task _task);
+  UpdateTaskCommand(TaskManager* _taskManager);
   ~UpdateTaskCommand();
 
   void execute();

@@ -57,7 +57,7 @@ void TaskManager::addTask() {
         builder.setId(++taskId);
         newTask = builder.build();
         tasks.push_back(newTask.release());
-        cout << "Task created successfully!" << endl;
+        cout << "Task created successfully with ID: " << taskId << endl;
         cout << "-----------------------------------" << endl;
         return;
       default:
@@ -110,7 +110,7 @@ void TaskManager::updateTask(int taskId) {
           task->setDueDate(temp);
           break;
         case 6:
-          cout << "Task updated successfully!" << endl;
+          cout << "Task " << task->getId() << " updated successfully!" << endl;
           cout << "-----------------------------------" << endl;
           return;
         default:

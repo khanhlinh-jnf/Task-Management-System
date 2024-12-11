@@ -44,12 +44,15 @@ int main() {
   // } else {
   //   std::cerr << "Failed to build Task." << std::endl;
   // }
-
-  taskManager->addTask();
+  TaskCommand* newTask = new AddTaskCommand(taskManager);
+  TaskCommand* removeTask = new RemoveTaskCommand(taskManager);
+  TaskCommand* updateTask = new UpdateTaskCommand(taskManager);
+  
+  newTask->execute();
   taskManager->displayAllTasks();
-  taskManager->addTask();
+  newTask->execute();
   taskManager->displayAllTasks();
-  taskManager->updateTask(1);
+  updateTask->execute();
   taskManager->displayAllTasks();
 
 
