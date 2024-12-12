@@ -1,8 +1,13 @@
 #include "singleton.h"
+
+#include <algorithm>
+#include <iostream>
+
+#include "TaskBuilder.h"
+
 using namespace std;
 
 TaskManager* TaskManager::instance = nullptr;
-int TaskManager::taskId = 0;
 
 TaskManager* TaskManager::getInstance() {
   if (instance == nullptr) {
@@ -13,7 +18,7 @@ TaskManager* TaskManager::getInstance() {
 
 void TaskManager::addTask() {
   TaskBuilder builder;
-  std::unique_ptr<Task> newTask;
+  unique_ptr<Task> newTask;
   int choice = -1;
   string temp;
   while (true) {
@@ -30,40 +35,71 @@ void TaskManager::addTask() {
     switch (choice) {
       case 1:
         cout << "Enter title: ";
-        getline(cin, temp);
+        getline(std::cin, temp);
         builder.setTitle(temp);
         break;
       case 2:
         cout << "Enter description: ";
-        getline(cin, temp);
+        getline(std::cin, temp);
         builder.setDescription(temp);
         break;
       case 3:
         cout << "Enter assignee: ";
-        getline(cin, temp);
+        getline(std::cin, temp);
         builder.setAssignee(temp);
         break;
       case 4:
         cout << "Enter status: ";
-        getline(cin, temp);
+        getline(std::cin, temp);
         builder.setStatus(temp);
         break;
       case 5:
         cout << "Enter due date: ";
-        getline(cin, temp);
+        getline(std::cin, temp);
         builder.setDueDate(temp);
         break;
       case 6:
         builder.setId(++taskId);
         newTask = builder.build();
-        tasks.push_back(newTask.release());
-        cout << "Task created successfully with ID: " << taskId << endl;
-        cout << "-----------------------------------" << endl;
+        tasks.push_back(std::move(newTask));
+        cout << "Task created successfully with ID: " << taskId << std::endl;
+        cout << "-----------------------------------" << std::endl;
         return;
       default:
-        cout << "Invalid choice!" << endl;
+        cout << "Invalid choice!" << std::endl;
         break;
     }
+  }
+}
+
+void TaskManager::addTaskToGroup(TaskComponent* task, TaskGroup* group) {
+  group->add(task);
+}
+
+void TaskManager::createTaskGroup(const std::string& title) {
+  tasks.push_back(std::make_unique<TaskGroup>(title));
+}
+
+TaskComponent* TaskManager::getTask(int id) {
+  for (const auto& task : tasks) {
+    if (task->getId() == id) {
+      return task.get();
+    }
+  }
+  return nullptr;
+}
+
+void TaskManager::removeTask(int id) {
+  auto it = std::remove_if(tasks.begin(), tasks.end(),
+                           [id](const std::unique_ptr<TaskComponent>& task) {
+                             return task->getId() == id;
+                           });
+  tasks.erase(it, tasks.end());
+}
+
+void TaskManager::displayAllTasks() const {
+  for (const auto& task : tasks) {
+    task->display();
   }
 }
 
@@ -120,31 +156,5 @@ void TaskManager::updateTask(int taskId) {
     }
   } else {
     cout << "Task not found!" << endl;
-  }
-}
-
-void TaskManager::removeTask(int taskId) {
-  for (int i = 0; i < tasks.size(); i++) {
-    Task* t = dynamic_cast<Task*>(tasks[i]);
-    if (t && t->getId() == taskId) {
-      tasks.erase(tasks.begin() + i);
-      return;
-    }
-  }
-}
-
-TaskComponent* TaskManager::getTask(int taskId) {
-  for (TaskComponent* task : tasks) {
-    Task* t = dynamic_cast<Task*>(task);
-    if (t && t->getId() == taskId) {
-      return task;
-    }
-  }
-  return nullptr;
-}
-
-void TaskManager::displayAllTasks() {
-  for (TaskComponent* task : tasks) {
-    task->display();
   }
 }

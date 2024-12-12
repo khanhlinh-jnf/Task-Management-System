@@ -2,7 +2,7 @@
 
 class TaskComponent {
  public:
-  virtual ~TaskComponent() {}
+  virtual ~TaskComponent() = default;
   virtual void display() const = 0;
   virtual void setId(int id) = 0;
   virtual void setTitle(const std::string& title) = 0;
@@ -16,4 +16,9 @@ class TaskComponent {
   virtual std::string getAssignee() const = 0;
   virtual std::string getStatus() const = 0;
   virtual std::string getDueDate() const = 0;
+
+  virtual void add(TaskComponent* component) {};
+  virtual void remove(int id) {};
+  virtual TaskComponent* get(int id) { return nullptr; };
+  virtual void displayAll() const {};
 };

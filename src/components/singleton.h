@@ -1,30 +1,30 @@
 #pragma once
 
-#include <algorithm>
-#include <iostream>
-#include <string>
+#include <memory>
 #include <vector>
-using namespace std;
 
-#include "TaskBuilder.h"
-#include "task.h"
+#include "Task.h"
+#include "TaskComponent.h"
+#include "TaskGroup.h"
 
 class TaskManager {
- protected:
+ private:
   static TaskManager* instance;
-  static int taskId;
-  std::vector<TaskComponent*> tasks;
+  std::vector<std::unique_ptr<TaskComponent>> tasks;
+  int taskId = 0;
+
+  TaskManager() = default;
 
  public:
   static TaskManager* getInstance();
+
   void addTask();
-  void updateTask(int taskId);
-  void removeTask(int taskId);
-  void displayAllTasks();
-
-
-  TaskComponent* getTask(int taskId);
-
+  void updateTask(int id);
+  void addTaskToGroup(TaskComponent* task, TaskGroup* group);
+  void createTaskGroup(const std::string& title);
+  TaskComponent* getTask(int id);
+  void removeTask(int id);
+  void displayAllTasks() const;
 };
 
 #include "singleton.cpp"
