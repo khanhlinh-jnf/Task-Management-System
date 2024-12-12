@@ -43,11 +43,12 @@ void Task::setStatus(const std::string &status) { this->status = status; }
 std::string Task::getDueDate() const { return dueDate; }
 void Task::setDueDate(const std::string &dueDate) { this->dueDate = dueDate; }
 
-void Task::display() const {
-  std::cout << "Task ID: " << id << "\n"
-            << "Title: " << title << "\n"
-            << "Description: " << description << "\n"
-            << "Assignee: " << assignee << "\n"
-            << "Status: " << status << "\n"
-            << "Due Date: " << dueDate << std::endl;
+void Task::display(int indent) const {
+  std::string indentation(indent, ' ');
+  std::cout << indentation << "Task ID: " << id << "\n"
+            << indentation << "Title: " << title << "\n"
+            << indentation << "Description: " << description << "\n"
+            << indentation << "Assignee: " << assignee << "\n"
+            << indentation << "Status: " << status << "\n"
+            << indentation << "Due Date: " << dueDate << std::endl;
 }

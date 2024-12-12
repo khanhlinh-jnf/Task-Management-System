@@ -40,7 +40,7 @@ class Task : public TaskComponent {
   void setDueDate(const std::string &dueDate);
 
   // Displays task details
-  void display() const override;
-};
+  void display(int indent = 0) const;
+};   
 
 #include "Task.cpp"

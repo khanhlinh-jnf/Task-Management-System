@@ -17,7 +17,7 @@ class TaskGroup : public TaskComponent {
   void remove(TaskComponent* component);
   TaskComponent* getChild(int index);
   std::string getTitle() const override;
-  void display() const override;
+  void display(int ident = 0) const;
 
   // Implement pure virtual functions
   void setId(int id) override;

@@ -19,10 +19,11 @@ TaskComponent* TaskGroup::getChild(int index) {
 
 std::string TaskGroup::getTitle() const { return title; }
 
-void TaskGroup::display() const {
-  std::cout << "Task Group: " << title << std::endl;
+void TaskGroup::display(int indent) const {
+  std::string indentation(indent, ' ');
+  std::cout << indentation << "Task Group: " << title << std::endl;
   for (const auto& task : tasks) {
-    task->display();
+    task->display(indent + 2);
   }
 }
 

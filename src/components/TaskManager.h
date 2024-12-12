@@ -19,6 +19,8 @@ class TaskManager {
   static TaskManager* getInstance();
 
   void addTask();
+  void addTask(std::unique_ptr<TaskComponent> task);  // Add this method
+
   void updateTask(int id);
   void addTaskToGroup(TaskComponent* task, TaskGroup* group);
   void createTaskGroup(const std::string& title);
@@ -27,4 +29,4 @@ class TaskManager {
   void displayAllTasks() const;
 };
 
-#include "singleton.cpp"
+#include "TaskManager.cpp"

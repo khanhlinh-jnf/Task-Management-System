@@ -1,21 +1,19 @@
 #include "header.h"
 
 int main() {
-  TaskManager* manager = TaskManager::getInstance();
+  TaskManager* taskManager = TaskManager::getInstance();
 
-  manager->addTask();  // Add individual task
+  TaskCommand* newTask = new AddTaskCommand(taskManager);
+  TaskCommand* Task2 = new AddTaskCommand(taskManager);
+  TaskCommand* Task3 = new AddTaskCommand(taskManager);
 
-  manager->createTaskGroup("Group 1");
-  TaskGroup* group1 = dynamic_cast<TaskGroup*>(
-      manager->getTask(1));  // Assuming the first group has ID 1
+  // Create group
+  taskManager->createTaskGroup("Group 1");
+  TaskGroup* group = dynamic_cast<TaskGroup*>(taskManager->getTask(0));
+  
 
-  manager->addTask();  // Add another individual task
-  Task* task2 = dynamic_cast<Task*>(
-      manager->getTask(2));  // Assuming the second task has ID 2
-
-  manager->addTaskToGroup(task2, group1);  // Add task to group
-
-  manager->displayAllTasks();  // Display all tasks and groups
+  newTask->execute();
+  taskManager->displayAllTasks();
 
   return 0;
 }

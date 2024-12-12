@@ -2,15 +2,16 @@
 
 #include <iostream>
 
-#include "singleton.h"
+#include "TaskManager.h"
 
 using namespace std;
 
 class TaskCommand {
-	protected:
-		TaskManager* taskManager;
-	public:
-		virtual void execute() = 0;
+ protected:
+  TaskManager* taskManager;
+
+ public:
+  virtual void execute() = 0;
 };
 
 class AddTaskCommand : public TaskCommand {

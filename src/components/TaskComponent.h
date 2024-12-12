@@ -3,7 +3,6 @@
 class TaskComponent {
  public:
   virtual ~TaskComponent() = default;
-  virtual void display() const = 0;
   virtual void setId(int id) = 0;
   virtual void setTitle(const std::string& title) = 0;
   virtual void setDescription(const std::string& description) = 0;
@@ -21,4 +20,5 @@ class TaskComponent {
   virtual void remove(int id) {};
   virtual TaskComponent* get(int id) { return nullptr; };
   virtual void displayAll() const {};
+  virtual void display(int indent) const = 0;
 };

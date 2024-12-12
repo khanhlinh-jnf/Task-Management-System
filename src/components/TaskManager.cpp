@@ -1,4 +1,4 @@
-#include "singleton.h"
+#include "TaskManager.h"
 
 #include <algorithm>
 #include <iostream>
@@ -72,6 +72,10 @@ void TaskManager::addTask() {
   }
 }
 
+void TaskManager::addTask(std::unique_ptr<TaskComponent> task) {
+  tasks.push_back(std::move(task));
+}
+
 void TaskManager::addTaskToGroup(TaskComponent* task, TaskGroup* group) {
   group->add(task);
 }
@@ -99,7 +103,7 @@ void TaskManager::removeTask(int id) {
 
 void TaskManager::displayAllTasks() const {
   for (const auto& task : tasks) {
-    task->display();
+    task->display(0);  // Start with no indentation
   }
 }
 

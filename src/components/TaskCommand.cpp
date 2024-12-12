@@ -15,7 +15,7 @@ void AddTaskCommand::execute() {
     cout << "Task manager not linked!" << endl;
     return;
   }
-  taskManager->addTask(); 
+  taskManager->addTask();
 }
 
 // RemoveTaskCommand implementation
@@ -59,5 +59,5 @@ void UpdateTaskCommand::execute() {
   int taskID;
   cout << "Please enter task ID to be updated: " << endl;
   cin >> taskID;
-  taskManager->updateTask(taskID);  
+  taskManager->updateTask(taskID);
 }
