@@ -167,14 +167,12 @@ void AddGroupToGroupCommand::execute() {
 
   if (group && parentGroup) {
     TaskGroup* taskParentGroup = dynamic_cast<TaskGroup*>(parentGroup);
-    if (taskParentGroup )
-    {
+    if (taskParentGroup) {
       taskParentGroup->add(group);
     } else {
       cout << "Parent group ID does not correspond to a group!" << endl;
     }
-  }
-  else {
+  } else {
     cout << "Group or parent group ID not found!" << endl;
   }
 }
