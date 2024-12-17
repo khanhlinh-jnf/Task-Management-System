@@ -4,6 +4,17 @@
 
 int main() {
   TaskManager* manager = TaskManager::getInstance();
+
+  // Initializing command objects
+  vector<TaskCommand*> cmdObjects;
+  cmdObjects.push_back(new AddTaskCommand(manager));
+  cmdObjects.push_back(new RemoveTaskCommand(manager));
+  cmdObjects.push_back(new UpdateTaskCommand(manager));
+  cmdObjects.push_back(new DisplayTaskCommand(manager));
+  cmdObjects.push_back(new CreateGroupCommand(manager));
+  cmdObjects.push_back(new AddTaskToGroupCommand(manager));
+  cmdObjects.push_back(new AddGroupToGroupCommand(manager));
+
   // Create a new task
   TaskBuilder builder;
   builder.setId(1);
@@ -25,40 +36,57 @@ int main() {
   builder2.setAssignee("Assignee 2");
   builder2.setStatus("In Progress");
 
-  // Add the task to the manager
+  // Add task 2 to the manager
   manager->addTask(std::move(builder2.build()));
 
-  // Create group and add tasks to it
-  TaskComponent* group1 = new TaskGroup("Group 1");
-  group1->add(manager->getTask(1));
+  cout << endl << endl;
+  cmdObjects[3]->execute();  // display all tasks
+  cout << endl << endl;
 
-  // Add task 2 to group 2
-  TaskComponent* group2 = new TaskGroup("Group 2");
-  group2->add(manager->getTask(2));
+  // cmdObjects[1]->execute();  // remove task 1
+  cmdObjects[2]->execute();  // update task 2
+
+  cout << endl << endl;
+  cmdObjects[3]->execute();  // display all tasks
+  cout << endl << endl;
 
   // Create a new task
-  TaskBuilder builder3;
-  builder3.setId(3);
-  builder3.setTitle("Task 3");
-  builder3.setDescription("Description 3");
-  builder3.setAssignee("Assignee 3");
-  builder3.setStatus("Completed");
-  builder3.setDueDate("2021-12-31");
+  // TaskBuilder builder3;
+  // builder3.setId(3);
+  // builder3.setTitle("Task 3");
+  // builder3.setDescription("Description 3");
+  // builder3.setAssignee("Assignee 3");
+  // builder3.setStatus("Completed");
+  // builder3.setDueDate("2021-12-31");
 
-  manager->addTask(std::move(builder3.build()));
-  // Create a group 3
-  TaskComponent* group3 = new TaskGroup("Group 3");
-  group3->add(manager->getTask(3));
+  cmdObjects[0]->execute(); // add task 3
 
-  // Add group 1 and group 2 to group 3
-  group3->add(group1);
-  group3->add(group2);
+  cout << endl << endl;
+  cmdObjects[3]->execute();  // display all tasks
+  cout << endl << endl;
 
-  // Add group 3 to the manager
-  manager->addTask(std::unique_ptr<TaskComponent>(group3));
+  // Create group 1 and add tasks to it
+  cmdObjects[4]->execute(); // create group 1
+  cmdObjects[5]->execute(); // add task 1 to group 1
+
+  // Add task 2 to group 2
+  cmdObjects[4]->execute(); // create group 2
+  cmdObjects[5]->execute(); // add task 2 to group 2
+
+  // Create group 3 and add group 1 and 2
+  cmdObjects[4]->execute(); // create group 3
+  cmdObjects[6]->execute(); // add group 1 to group 3
+  cmdObjects[6]->execute(); // add group 2 to group 3
+
+  // // Add group 1 and group 2 to group 3
+  // group3->add(group1);
+  // group3->add(group2);
+
+  // // Add group 3 to the manager
+  // manager->addTask(std::unique_ptr<TaskComponent>(group3));
 
   // Display all tasks
-  manager->displayAllTasks();
+  cmdObjects[3]->execute();
 
   return 0;
 }

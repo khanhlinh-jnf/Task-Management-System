@@ -73,6 +73,7 @@ void TaskManager::addTask() {
 }
 
 void TaskManager::addTask(std::unique_ptr<TaskComponent> task) {
+  taskId++;
   tasks.push_back(std::move(task));
 }
 
@@ -81,7 +82,7 @@ void TaskManager::addTaskToGroup(TaskComponent* task, TaskGroup* group) {
 }
 
 void TaskManager::createTaskGroup(const std::string& title) {
-  tasks.push_back(std::make_unique<TaskGroup>(title));
+  tasks.push_back(std::make_unique<TaskGroup>(title, ++taskId));
 }
 
 TaskComponent* TaskManager::getTask(int id) {

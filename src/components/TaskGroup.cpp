@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-TaskGroup::TaskGroup(const std::string& title) : title(title) {}
+TaskGroup::TaskGroup(const std::string& title, int id) : title(title), id(id) {}
 
 void TaskGroup::add(TaskComponent* component) { tasks.push_back(component); }
 
@@ -27,7 +27,7 @@ void TaskGroup::display(int indent) const {
   }
 }
 
-void TaskGroup::setId(int id) {}
+void TaskGroup::setId(int id) { this->id = id; }
 
 void TaskGroup::setTitle(const std::string& title) { this->title = title; }
 
@@ -39,7 +39,7 @@ void TaskGroup::setStatus(const std::string& status) {}
 
 void TaskGroup::setDueDate(const std::string& dueDate) {}
 
-int TaskGroup::getId() const { return -1; }
+int TaskGroup::getId() const { return id; }
 
 std::string TaskGroup::getDescription() const { return ""; }
 

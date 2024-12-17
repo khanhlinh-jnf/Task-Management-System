@@ -9,9 +9,10 @@ class TaskGroup : public TaskComponent {
  private:
   std::string title;
   std::vector<TaskComponent*> tasks;
+  int id;
 
  public:
-  TaskGroup(const std::string& title);
+  TaskGroup(const std::string& title, int id);
 
   void add(TaskComponent* component) override;
   void remove(TaskComponent* component);
