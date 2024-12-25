@@ -77,4 +77,3 @@ class AddGroupToGroupCommand : public TaskCommand {
     void execute();
 };
 
-#include "TaskCommand.cpp"

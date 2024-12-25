@@ -33,5 +33,3 @@ class TaskGroup : public TaskComponent {
   std::string getStatus() const override;
   std::string getDueDate() const override;
 };
-
-#include "TaskGroup.cpp"

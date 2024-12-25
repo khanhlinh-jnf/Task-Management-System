@@ -42,5 +42,3 @@ class Task : public TaskComponent {
   // Displays task details
   void display(int indent = 0) const;
 };
-
-#include "Task.cpp"

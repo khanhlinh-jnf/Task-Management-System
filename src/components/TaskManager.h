@@ -28,5 +28,3 @@ class TaskManager {
   void removeTask(int id);
   void displayAllTasks() const;
 };
-
-#include "TaskManager.cpp"

@@ -19,5 +19,3 @@ class TaskBuilder {
 
   std::unique_ptr<Task> build(); // Returns ownership of the Task
 };
-
-#include "TaskBuilder.cpp"

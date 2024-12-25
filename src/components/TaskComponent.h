@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class TaskComponent {
  public:
   virtual ~TaskComponent() = default;
