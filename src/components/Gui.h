@@ -1,16 +1,16 @@
 #pragma once
 
 #include <functional>
-#include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
 
+#include "TaskCommand.h"
+#include "TaskManager.h"
 #include "raylib.h"
 
 class Gui {
  public:
-  Gui();
+  Gui(TaskManager* manager, const std::vector<TaskCommand*>& cmdObjects);
   ~Gui();
 
   void initialize();
@@ -20,4 +20,6 @@ class Gui {
 
  private:
   Font customFont;
+  TaskManager* manager;
+  std::vector<TaskCommand*> cmdObjects;
 };

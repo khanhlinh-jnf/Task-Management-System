@@ -1,6 +1,7 @@
 #include "Gui.h"
 
-Gui::Gui() {
+Gui::Gui(TaskManager* manager, const std::vector<TaskCommand*>& cmdObjects)
+    : manager(manager), cmdObjects(cmdObjects) {
   // Initialization code here
 }
 
@@ -38,10 +39,32 @@ void Gui::draw() const {
 
   // Draw your GUI elements here using the custom font
   if (customFont.texture.id != 0) {
-    DrawTextEx(customFont, "Hello, Raylib!", {100, 100}, 40, 2, DARKGRAY);
+    DrawTextEx(customFont, "Task Management System", {10, 10},
+               customFont.baseSize * 2, 2, DARKGRAY);
   } else {
     DrawText("Failed to load font", 10, 10, 20, RED);
   }
+
+  // Example buttons and input fields
+  Rectangle addTaskButton = {10, 50, 100, 30};
+  DrawRectangleRec(addTaskButton, LIGHTGRAY);
+  DrawText("Add Task", addTaskButton.x + 10, addTaskButton.y + 10, 10,
+           DARKGRAY);
+  if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) &&
+      CheckCollisionPointRec(GetMousePosition(), addTaskButton)) {
+    cmdObjects[0]->execute();  // add task
+  }
+
+  Rectangle displayTasksButton = {10, 90, 100, 30};
+  DrawRectangleRec(displayTasksButton, LIGHTGRAY);
+  DrawText("Display Tasks", displayTasksButton.x + 10,
+           displayTasksButton.y + 10, 10, DARKGRAY);
+  if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) &&
+      CheckCollisionPointRec(GetMousePosition(), displayTasksButton)) {
+    cmdObjects[3]->execute();  // display tasks
+  }
+
+  // Additional buttons...
 
   EndDrawing();
 }

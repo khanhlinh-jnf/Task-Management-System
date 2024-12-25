@@ -2,7 +2,7 @@
 
 #include "header.h"
 
-/* int main() {
+int main() {
   TaskManager* manager = TaskManager::getInstance();
 
   // Initializing command objects
@@ -89,4 +89,4 @@
   cmdObjects[3]->execute();
 
   return 0;
-} */
+}
