@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "components/Gui.h"
 #include "components/Task.h"
 #include "components/TaskBuilder.h"
 #include "components/TaskCommand.h"
