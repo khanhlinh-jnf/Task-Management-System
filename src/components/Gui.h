@@ -22,4 +22,8 @@ class Gui {
   Font customFont;
   TaskManager* manager;
   std::vector<TaskCommand*> cmdObjects;
+
+  void showAddTaskWindow() const;
+  static void DrawTextBox(std::string& buffer, int x, int y, int width,
+                          int height, bool typing);
 };
