@@ -77,3 +77,29 @@ class AddGroupToGroupCommand : public TaskCommand {
     void execute();
 };
 
+class DisplayGroupCommand : public TaskCommand {
+  public:
+    DisplayGroupCommand();
+    DisplayGroupCommand(TaskManager* _taskManager);
+    ~DisplayGroupCommand();
+
+    void execute();
+};
+
+class DisplayAllGroupNameCommand : public TaskCommand {
+  public:
+    DisplayAllGroupNameCommand();
+    DisplayAllGroupNameCommand(TaskManager* _taskManager);
+    ~DisplayAllGroupNameCommand();
+
+    void execute();
+};
+
+class DisplayAllTaskNameCommand : public TaskCommand {
+  public:
+    DisplayAllTaskNameCommand();
+    DisplayAllTaskNameCommand(TaskManager* _taskManager);
+    ~DisplayAllTaskNameCommand();
+
+    void execute();
+};

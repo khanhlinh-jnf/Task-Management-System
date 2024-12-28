@@ -21,6 +21,8 @@ Task::Task(int id, const std::string &title, const std::string &description,
       status(status),
       dueDate(dueDate) {}
 
+int Task::getType() const { return type; }
+
 int Task::getId() const { return id; }
 void Task::setId(int id) { this->id = id; }
 
@@ -51,4 +53,10 @@ void Task::display(int indent) const {
             << indentation << "Assignee: " << assignee << "\n"
             << indentation << "Status: " << status << "\n"
             << indentation << "Due Date: " << dueDate << std::endl;
+}
+
+void Task::displayName(int indent) const {
+  std::string indentation(indent, ' ');
+  std::cout << indentation << "Task ID: " << id << "\n"
+            << indentation << "Title: " << title << std::endl;
 }

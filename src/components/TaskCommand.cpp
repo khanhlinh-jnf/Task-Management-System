@@ -57,7 +57,7 @@ void UpdateTaskCommand::execute() {
   }
 
   int taskID;
-  cout << "Please enter task ID to be updated: " << endl;
+  cout << "Please enter task ID to be updated: ";
   cin >> taskID;
   taskManager->updateTask(taskID);
 }
@@ -98,7 +98,7 @@ void CreateGroupCommand::execute() {
   }
 
   string title;
-  cout << "Please enter group title: " << endl;
+  cout << "Please enter group title: ";
   cin >> title;
   taskManager->createTaskGroup(title);
 }
@@ -120,13 +120,13 @@ void AddTaskToGroupCommand::execute() {
   }
 
   int taskID, groupID;
-  cout << "Please enter task ID to be added: " << endl;
+  cout << "Please enter task ID to be added: ";
   cin >> taskID;
-  cout << "Please enter group ID: " << endl;
+  cout << "Please enter group ID: ";
   cin >> groupID;
 
   TaskComponent* task = taskManager->getTask(taskID);
-  TaskComponent* group = taskManager->getTask(groupID);
+  TaskComponent* group = taskManager->getGroup(groupID);
 
   if (task && group) {
     TaskGroup* taskGroup = dynamic_cast<TaskGroup*>(group);
@@ -134,10 +134,14 @@ void AddTaskToGroupCommand::execute() {
       taskManager->addTaskToGroup(task, taskGroup);
     } else {
       cout << "Group ID does not correspond to a group!" << endl;
+      return;
     }
   } else {
     cout << "Task or group ID not found!" << endl;
+    return;
   }
+  cout << "Added task " << taskID << " to group " << groupID << " successfully!" << endl;
+  cout << "-----------------------------------" << endl;
 }
 
 // AddGroupToGroupCommand implementation
@@ -157,13 +161,13 @@ void AddGroupToGroupCommand::execute() {
   }
 
   int groupID, parentGroupID;
-  cout << "Please enter sub group ID to be added: " << endl;
+  cout << "Please enter sub group ID to be added: ";
   cin >> groupID;
-  cout << "Please enter parent group ID: " << endl;
+  cout << "Please enter parent group ID: ";
   cin >> parentGroupID;
 
-  TaskComponent* group = taskManager->getTask(groupID);
-  TaskComponent* parentGroup = taskManager->getTask(parentGroupID);
+  TaskComponent* group = taskManager->getGroup(groupID);
+  TaskComponent* parentGroup = taskManager->getGroup(parentGroupID);
 
   if (group && parentGroup) {
     TaskGroup* taskParentGroup = dynamic_cast<TaskGroup*>(parentGroup);
@@ -171,8 +175,74 @@ void AddGroupToGroupCommand::execute() {
       taskParentGroup->add(group);
     } else {
       cout << "Parent group ID does not correspond to a group!" << endl;
+      return;
     }
   } else {
     cout << "Group or parent group ID not found!" << endl;
+    return;
   }
+  cout << "Added group " << groupID << " to parent group " << parentGroupID << " successfully!"
+       << endl;
+  cout << "-----------------------------------" << endl;
+
+}
+
+// DisplayGroupCommand implementation
+DisplayAllGroupNameCommand::DisplayAllGroupNameCommand() {
+  taskManager = nullptr;
+}
+DisplayAllGroupNameCommand::DisplayAllGroupNameCommand(
+    TaskManager* _taskManager) {
+  taskManager = _taskManager;
+}
+DisplayAllGroupNameCommand::~DisplayAllGroupNameCommand() {
+  taskManager = nullptr;
+}
+
+void DisplayAllGroupNameCommand::execute() {
+  if (!taskManager) {
+    cout << "Task manager not linked!" << endl;
+    return;
+  }
+
+  taskManager->displayAllGroupName();
+}
+
+// DisplayGroupCommand implementation
+DisplayGroupCommand::DisplayGroupCommand() { taskManager = nullptr; }
+DisplayGroupCommand::DisplayGroupCommand(TaskManager* _taskManager) {
+  taskManager = _taskManager;
+}
+DisplayGroupCommand::~DisplayGroupCommand() { taskManager = nullptr; }
+void DisplayGroupCommand::execute() {
+  if (!taskManager) {
+    cout << "Task manager not linked!" << endl;
+    return;
+  }
+
+  int groupID;
+  cout << "Please enter group ID to be displayed: " << endl;
+  cin >> groupID;
+  taskManager->displayGroup(groupID);
+}
+
+// DisplayAllTaskNameCommand implementation
+DisplayAllTaskNameCommand::DisplayAllTaskNameCommand() {
+  taskManager = nullptr;
+}
+DisplayAllTaskNameCommand::DisplayAllTaskNameCommand(
+    TaskManager* _taskManager) {
+  taskManager = _taskManager;
+}
+DisplayAllTaskNameCommand::~DisplayAllTaskNameCommand() {
+  taskManager = nullptr;
+}
+
+void DisplayAllTaskNameCommand::execute() {
+  if (!taskManager) {
+    cout << "Task manager not linked!" << endl;
+    return;
+  }
+
+  taskManager->displayAllTaskName();
 }

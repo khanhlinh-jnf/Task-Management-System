@@ -12,6 +12,7 @@ class TaskManager {
   static TaskManager* instance;
   std::vector<std::unique_ptr<TaskComponent>> tasks;
   int taskId = 0;
+  int groupId = 0;
 
   TaskManager() = default;
 
@@ -25,6 +26,11 @@ class TaskManager {
   void addTaskToGroup(TaskComponent* task, TaskGroup* group);
   void createTaskGroup(const std::string& title);
   TaskComponent* getTask(int id);
+  TaskComponent* getGroup(int id);
   void removeTask(int id);
   void displayAllTasks() const;
+  void displayAllGroupName() const;
+  void displayGroup(int id);
+  void displayAllTaskName() const;
+
 };

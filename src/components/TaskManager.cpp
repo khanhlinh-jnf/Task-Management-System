@@ -2,10 +2,12 @@
 
 #include <algorithm>
 #include <iostream>
+#include <string>
 
 #include "TaskBuilder.h"
 
 using namespace std;
+const string BREAK = "-----------------------------------";
 
 TaskManager* TaskManager::instance = nullptr;
 
@@ -21,15 +23,16 @@ void TaskManager::addTask() {
   unique_ptr<Task> newTask;
   int choice = -1;
   string temp;
+  cout << "Create new task \n"
+       << "1. Set title\n"
+       << "2. Set description\n"
+       << "3. Set assignee\n"
+       << "4. Set status\n"
+       << "5. Set due date\n"
+       << "6. Save task\n"
+       << endl;
   while (true) {
-    cout << "Create new task \n"
-         << "1. Set title\n"
-         << "2. Set description\n"
-         << "3. Set assignee\n"
-         << "4. Set status\n"
-         << "5. Set due date\n"
-         << "6. Save task\n"
-         << "Enter choice: ";
+    cout << "Enter choice: ";
     cin >> choice;
     cin.ignore();
     switch (choice) {
@@ -63,7 +66,7 @@ void TaskManager::addTask() {
         newTask = builder.build();
         tasks.push_back(std::move(newTask));
         cout << "Task created successfully with ID: " << taskId << std::endl;
-        cout << "-----------------------------------" << std::endl;
+        cout << BREAK << endl;
         return;
       default:
         cout << "Invalid choice!" << std::endl;
@@ -82,12 +85,23 @@ void TaskManager::addTaskToGroup(TaskComponent* task, TaskGroup* group) {
 }
 
 void TaskManager::createTaskGroup(const std::string& title) {
-  tasks.push_back(std::make_unique<TaskGroup>(title, ++taskId));
+  tasks.push_back(std::make_unique<TaskGroup>(title, ++groupId));
+  cout << "Group created successfully with ID: " << groupId << std::endl;
+  cout << BREAK << endl;
 }
 
 TaskComponent* TaskManager::getTask(int id) {
   for (const auto& task : tasks) {
-    if (task->getId() == id) {
+    if (task->getId() == id && task->getType() == 0) {
+      return task.get();
+    }
+  }
+  return nullptr;
+}
+
+TaskComponent* TaskManager::getGroup(int id) {
+  for (const auto& task : tasks) {
+    if (task->getId() == id && task->getType() == 1) {
       return task.get();
     }
   }
@@ -100,12 +114,8 @@ void TaskManager::removeTask(int id) {
                              return task->getId() == id;
                            });
   tasks.erase(it, tasks.end());
-}
-
-void TaskManager::displayAllTasks() const {
-  for (const auto& task : tasks) {
-    task->display(0);  // Start with no indentation
-  }
+  cout << "Task " << id << " removed successfully!" << endl;
+  cout << BREAK << endl;
 }
 
 void TaskManager::updateTask(int taskId) {
@@ -113,15 +123,16 @@ void TaskManager::updateTask(int taskId) {
   if (task) {
     string temp;
     int choice = -1;
+    cout << "Update task \n"
+         << "1. Set title\n"
+         << "2. Set description\n"
+         << "3. Set assignee\n"
+         << "4. Set status\n"
+         << "5. Set due date\n"
+         << "6. Save task\n"
+         << endl;
     while (true) {
-      cout << "Update task \n"
-           << "1. Set title\n"
-           << "2. Set description\n"
-           << "3. Set assignee\n"
-           << "4. Set status\n"
-           << "5. Set due date\n"
-           << "6. Save task\n"
-           << "Enter choice: ";
+      cout << "Enter choice: ";
       cin >> choice;
       cin.ignore();
       switch (choice) {
@@ -152,7 +163,7 @@ void TaskManager::updateTask(int taskId) {
           break;
         case 6:
           cout << "Task " << task->getId() << " updated successfully!" << endl;
-          cout << "-----------------------------------" << endl;
+          cout << BREAK << endl;
           return;
         default:
           cout << "Invalid choice!" << endl;
@@ -162,4 +173,41 @@ void TaskManager::updateTask(int taskId) {
   } else {
     cout << "Task not found!" << endl;
   }
+}
+
+void TaskManager::displayAllTasks() const {
+  cout << "All tasks: " << endl;
+  cout << BREAK << endl;
+  for (const auto& task : tasks) {
+    if (task->getType() == 1) continue;
+    task->display(0);  // Start with no indentation
+    cout << BREAK << endl;
+  }
+}
+
+void TaskManager::displayGroup(int id) {
+  TaskComponent* group = getGroup(id);
+  if (group) {
+    group->display(0);
+  } else {
+    cout << "Group not found!" << endl;
+  }
+}
+
+void TaskManager::displayAllGroupName() const {
+  cout << "All groups: " << endl;
+  for (const auto& task : tasks) {
+    if (task->getType() == 0) continue;
+    task->displayName(0);  // Start with no indentation
+  }
+  cout << BREAK << endl;
+}
+
+void TaskManager::displayAllTaskName() const {
+  cout << "All tasks: " << endl;
+  for (const auto& task : tasks) {
+    if (task->getType() == 1) continue;
+    task->displayName(0);  // Start with no indentation
+  }
+  cout << BREAK << endl;
 }
