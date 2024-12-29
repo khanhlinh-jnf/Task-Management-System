@@ -17,10 +17,11 @@ class TaskComponent {
   virtual std::string getAssignee() const = 0;
   virtual std::string getStatus() const = 0;
   virtual std::string getDueDate() const = 0;
-
+  virtual int getType() const = 0;
   virtual void add(TaskComponent* component) {};
   virtual void remove(int id) {};
   virtual TaskComponent* get(int id) { return nullptr; };
   virtual void displayAll() const {};
   virtual void display(int indent) const = 0;
+  virtual void displayName(int indent) const = 0;
 };

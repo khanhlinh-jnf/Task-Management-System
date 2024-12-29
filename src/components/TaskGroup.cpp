@@ -10,6 +10,8 @@ void TaskGroup::remove(TaskComponent* component) {
   tasks.erase(std::remove(tasks.begin(), tasks.end(), component), tasks.end());
 }
 
+int TaskGroup::getType() const { return type; }
+
 TaskComponent* TaskGroup::getChild(int index) {
   if (index < tasks.size()) {
     return tasks[index];
@@ -21,10 +23,17 @@ std::string TaskGroup::getTitle() const { return title; }
 
 void TaskGroup::display(int indent) const {
   std::string indentation(indent, ' ');
-  std::cout << indentation << "Task Group: " << title << std::endl;
+  displayName(indent);
   for (const auto& task : tasks) {
     task->display(indent + 2);
   }
+  std::cout << indentation << "----------------" << std::endl;
+}
+
+void TaskGroup::displayName(int indent) const {
+  std::string indentation(indent, ' ');
+  std::cout << indentation << "Group ID: " << id << "\n"
+            << indentation << "Title: " << title << std::endl;
 }
 
 void TaskGroup::setId(int id) { this->id = id; }

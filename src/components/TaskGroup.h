@@ -7,6 +7,7 @@
 
 class TaskGroup : public TaskComponent {
  private:
+  int type = 1;  // 0 for task, 1 for group
   std::string title;
   std::vector<TaskComponent*> tasks;
   int id;
@@ -19,6 +20,7 @@ class TaskGroup : public TaskComponent {
   TaskComponent* getChild(int index);
   std::string getTitle() const override;
   void display(int ident = 0) const;
+  void displayName(int ident = 0) const;
 
   // Implement pure virtual functions
   void setId(int id) override;
@@ -28,6 +30,7 @@ class TaskGroup : public TaskComponent {
   void setStatus(const std::string& status) override;
   void setDueDate(const std::string& dueDate) override;
   int getId() const override;
+  int getType() const;
   std::string getDescription() const override;
   std::string getAssignee() const override;
   std::string getStatus() const override;

@@ -6,6 +6,7 @@
 
 class Task : public TaskComponent {
  private:
+  int type = 0;  // 0 for task, 1 for group
   int id;
   std::string title;
   std::string description;
@@ -21,6 +22,7 @@ class Task : public TaskComponent {
        const std::string &dueDate);
 
   // Getters and setters
+  int getType() const;
   int getId() const;
   void setId(int id);
 
@@ -41,4 +43,6 @@ class Task : public TaskComponent {
 
   // Displays task details
   void display(int indent = 0) const;
+
+  void displayName(int indent = 0) const;
 };
