@@ -79,6 +79,17 @@ TaskComponent* TaskManager::getGroup(int id) {
 }
 
 void TaskManager::removeTask(int id) {
+  //check if task is in any group
+  for (const auto& task : tasks) {
+    if (task->getType() == 1) {
+      TaskGroup* group = dynamic_cast<TaskGroup*>(task.get());
+      if (!group) {
+        cout << "Error: dynamic_cast failed for TaskGroup." << endl;
+        continue;
+      }
+      group->remove(getTask(id));
+    }
+  }
   auto it = std::remove_if(tasks.begin(), tasks.end(),
                            [id](const std::unique_ptr<TaskComponent>& task) {
                              return task->getId() == id;
