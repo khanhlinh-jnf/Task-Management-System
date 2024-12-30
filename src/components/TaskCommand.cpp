@@ -132,31 +132,31 @@ void UpdateTaskCommand::execute() {
           cout << "Enter title: ";
           getline(cin, temp);
           data[0] = temp;
-          record[choice] = 1;
+          record[0] = 1;
           break;
         case 2:
           cout << "Enter description: ";
           getline(cin, temp);
           data[1] = temp;
-          record[choice] = 1;
+          record[1] = 1;
           break;
         case 3:
           cout << "Enter assignee: ";
           getline(cin, temp);
           data[2] = temp;
-          record[choice] = 1;
+          record[2] = 1;
           break;
         case 4:
           cout << "Enter status: ";
           getline(cin, temp);
           data[3] = temp;
-          record[choice] = 1;
+          record[3] = 1;
           break;
         case 5:
           cout << "Enter due date: ";
           getline(cin, temp);
           data[4] = temp;
-          record[choice] = 1;
+          record[4] = 1;
           break;
         case 6:
           taskManager->updateTask(task, data, record);

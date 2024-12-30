@@ -21,10 +21,10 @@ class TaskManager {
  public:
   static TaskManager* getInstance();
 
-  void addTask(vector<string> data);
+  void addTask(std::vector<std::string> data);
   void addTask(std::unique_ptr<TaskComponent> task);  // Add this method
 
-  void updateTask(TaskComponent* task, vector<string> data, vector<int> choice);
+  void updateTask(TaskComponent* task, std::vector<std::string> data, std::vector<int> choice);
   void addTaskToGroup(TaskComponent* task, TaskGroup* group);
   void createTaskGroup(const std::string& title);
   TaskComponent* getTask(int id);
