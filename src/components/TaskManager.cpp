@@ -18,61 +18,31 @@ TaskManager* TaskManager::getInstance() {
   return instance;
 }
 
-void TaskManager::addTask() {
+void TaskManager::addTask(vector<string> data) {
   TaskBuilder builder;
   unique_ptr<Task> newTask;
-  int choice = -1;
-  string temp;
-  cout << "Create new task \n"
-       << "1. Set title\n"
-       << "2. Set description\n"
-       << "3. Set assignee\n"
-       << "4. Set status\n"
-       << "5. Set due date\n"
-       << "6. Save task\n"
-       << endl;
-  while (true) {
-    cout << "Enter choice: ";
-    cin >> choice;
-    cin.ignore();
-    switch (choice) {
-      case 1:
-        cout << "Enter title: ";
-        getline(std::cin, temp);
-        builder.setTitle(temp);
-        break;
-      case 2:
-        cout << "Enter description: ";
-        getline(std::cin, temp);
-        builder.setDescription(temp);
-        break;
-      case 3:
-        cout << "Enter assignee: ";
-        getline(std::cin, temp);
-        builder.setAssignee(temp);
-        break;
-      case 4:
-        cout << "Enter status: ";
-        getline(std::cin, temp);
-        builder.setStatus(temp);
-        break;
-      case 5:
-        cout << "Enter due date: ";
-        getline(std::cin, temp);
-        builder.setDueDate(temp);
-        break;
-      case 6:
-        builder.setId(++taskId);
-        newTask = builder.build();
-        tasks.push_back(std::move(newTask));
-        cout << "Task created successfully with ID: " << taskId << std::endl;
-        cout << BREAK << endl;
-        return;
-      default:
-        cout << "Invalid choice!" << std::endl;
-        break;
-    }
+
+  if (data[0] != "") {
+    builder.setTitle(data[0]);
   }
+  if (data[1] != "") {
+    builder.setDescription(data[1]);
+  }
+  if (data[2] != "") {
+    builder.setAssignee(data[2]);
+  }
+  if (data[3] != "") {
+    builder.setStatus(data[3]);
+  }
+  if (data[4] != "") {
+    builder.setDueDate(data[4]);
+  }
+
+  builder.setId(++taskId);
+  newTask = builder.build();
+  tasks.push_back(std::move(newTask));
+  cout << "Task created successfully with ID: " << taskId << std::endl;
+  cout << BREAK << endl;
 }
 
 void TaskManager::addTask(std::unique_ptr<TaskComponent> task) {

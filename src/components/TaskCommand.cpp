@@ -15,7 +15,56 @@ void AddTaskCommand::execute() {
     cout << "Task manager not linked!" << endl;
     return;
   }
-  taskManager->addTask();
+  
+  vector<string> data(5, "");
+  int choice = -1;
+  string temp;
+  cout << "Create new task \n"
+       << "1. Set title\n"
+       << "2. Set description\n"
+       << "3. Set assignee\n"
+       << "4. Set status\n"
+       << "5. Set due date\n"
+       << "6. Save task\n"
+       << endl;
+  while (true) {
+    cout << "Enter choice: ";
+    cin >> choice;
+    cin.ignore();
+    switch (choice) {
+      case 1:
+        cout << "Enter title: ";
+        getline(std::cin, temp);
+        data[0] = temp;
+        break;
+      case 2:
+        cout << "Enter description: ";
+        getline(std::cin, temp);
+        data[1] = temp;
+        break;
+      case 3:
+        cout << "Enter assignee: ";
+        getline(std::cin, temp);
+        data[2] = temp;
+        break;
+      case 4:
+        cout << "Enter status: ";
+        getline(std::cin, temp);
+        data[3] = temp;
+        break;
+      case 5:
+        cout << "Enter due date: ";
+        getline(std::cin, temp);
+        data[4] = temp;
+        break;
+      case 6:
+        taskManager->addTask(data);
+        return;
+      default:
+        cout << "Invalid choice!" << std::endl;
+        break;
+    }
+  }
 }
 
 // RemoveTaskCommand implementation

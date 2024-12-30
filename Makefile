@@ -1,4 +1,5 @@
 CXX = D:\gcc\mingw64\bin\g++
+# CXX = g++
 CXXFLAGS = -Wall -Wno-narrowing -Wno-enum-compare -Wno-sign-compare -Wl,--subsystem,windows
 
 BIN = bin
