@@ -19,7 +19,7 @@ int main() {
   cmdObjects.push_back(new AddTaskToGroupCommand(manager));
   cmdObjects.push_back(new AddGroupToGroupCommand(manager));
 
-
+  manager->readFromFile("tasks.txt");
   int choice = -1;
   while (choice != 0) {
     cout << "Task Management System\n"
@@ -42,11 +42,13 @@ int main() {
       cmdObjects[choice - 1]->execute();
     } else if (choice == 0) {
       cout << "Exiting..." << endl;
-      return 0;
     } else {
       cout << "Invalid choice!" << endl;
     }
   }
 
+  //cmdObjects[10]->execute(); // Write to file
+  manager->writeToFile("tasks.txt");
+  
   return 0;
 }

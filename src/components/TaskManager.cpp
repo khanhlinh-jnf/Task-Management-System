@@ -211,3 +211,45 @@ void TaskManager::displayAllTaskName() const {
   }
   cout << BREAK << endl;
 }
+
+void TaskManager::writeToFile(const std::string& filename) const {
+  ofstream file(filename);
+  if (!file.is_open()) {
+    cout << "Error opening file!" << endl;
+    return;
+  }
+  file << tasks.size() << "\n";
+  for (const auto& task : tasks) {
+    task->writeToFile(file);
+  }
+  file << taskId << "\n";
+  file << groupId << "\n";
+  file.close();
+}
+
+void TaskManager::readFromFile(const std::string& filename) {
+  ifstream file(filename);
+  if (!file.is_open()) {
+    cout << "Error opening file!" << endl;
+    return;
+  }
+  int numTasks, type;
+  file >> numTasks;
+  for (int i = 0; i < numTasks; i++) {
+    file >> type;
+    file.ignore();
+    if (type == 0) {
+      unique_ptr<TaskComponent> task = std::make_unique<Task>();
+      task->readFromFile(file);
+      tasks.push_back(std::move(task));
+    } else {
+      unique_ptr<TaskComponent> group = std::make_unique<TaskGroup>();
+      group->readFromFile(file);
+      tasks.push_back(std::move(group));
+    }
+  }
+
+  file >> taskId;
+  file >> groupId;
+  file.close();
+}

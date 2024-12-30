@@ -60,3 +60,23 @@ void Task::displayName(int indent) const {
   std::cout << indentation << "Task ID: " << id << "\n"
             << indentation << "Title: " << title << std::endl;
 }
+
+void Task::writeToFile(std::ofstream &file) const {
+  file << type << "\n"
+       << id << "\n"
+       << title << "\n"
+       << description << "\n"
+       << assignee << "\n"
+       << status << "\n"
+       << dueDate << "\n";
+}
+
+void Task::readFromFile(std::ifstream &file) {
+  file >> id;
+  file.ignore();
+  std::getline(file, title);
+  std::getline(file, description);
+  std::getline(file, assignee);
+  std::getline(file, status);
+  std::getline(file, dueDate);
+}

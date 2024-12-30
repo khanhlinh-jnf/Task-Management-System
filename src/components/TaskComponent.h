@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-
+#include <fstream>
 class TaskComponent {
  public:
   virtual ~TaskComponent() = default;
@@ -24,4 +24,6 @@ class TaskComponent {
   virtual void displayAll() const {};
   virtual void display(int indent) const = 0;
   virtual void displayName(int indent) const = 0;
+  virtual void writeToFile(std::ofstream& file) const {};
+  virtual void readFromFile(std::ifstream& file) {};
 };

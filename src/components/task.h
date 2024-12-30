@@ -45,4 +45,7 @@ class Task : public TaskComponent {
   void display(int indent = 0) const;
 
   void displayName(int indent = 0) const;
+
+  void writeToFile(std::ofstream &file) const;
+     void readFromFile(std::ifstream &file);
 };

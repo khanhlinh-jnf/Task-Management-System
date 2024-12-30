@@ -246,3 +246,4 @@ void DisplayAllTaskNameCommand::execute() {
 
   taskManager->displayAllTaskName();
 }
+

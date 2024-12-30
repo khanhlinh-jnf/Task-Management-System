@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 
+#include "Task.h"
 #include "TaskComponent.h"
 
 class TaskGroup : public TaskComponent {
@@ -14,6 +15,7 @@ class TaskGroup : public TaskComponent {
 
  public:
   TaskGroup(const std::string& title, int id);
+  TaskGroup();
 
   void add(TaskComponent* component) override;
   void remove(TaskComponent* component);
@@ -35,4 +37,6 @@ class TaskGroup : public TaskComponent {
   std::string getAssignee() const override;
   std::string getStatus() const override;
   std::string getDueDate() const override;
+  void writeToFile(std::ofstream& file) const override;
+  void readFromFile(std::ifstream& file);
 };

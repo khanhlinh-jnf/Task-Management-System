@@ -2,7 +2,9 @@
 
 #include <iostream>
 
+
 TaskGroup::TaskGroup(const std::string& title, int id) : title(title), id(id) {}
+TaskGroup::TaskGroup() : title(""), id(0) {}
 
 void TaskGroup::add(TaskComponent* component) { tasks.push_back(component); }
 
@@ -57,3 +59,36 @@ std::string TaskGroup::getAssignee() const { return ""; }
 std::string TaskGroup::getStatus() const { return ""; }
 
 std::string TaskGroup::getDueDate() const { return ""; }
+
+void TaskGroup::writeToFile(std::ofstream& file) const {
+  file << type << "\n"
+       << id << "\n"
+       << title << "\n"
+       << tasks.size() << "\n";
+  for (const auto& task : tasks) {
+    task->writeToFile(file);
+  }
+}
+
+void TaskGroup::readFromFile(std::ifstream& file) {
+  file >> id;
+  file.ignore();
+  std::getline(file, title);
+  int numTasks;
+  file >> numTasks;
+  int type;
+  for (int i = 0; i < numTasks; i++) {
+    file >> type;
+    file.ignore();
+    if (type == 0) {
+      TaskComponent* task = new Task();
+      task->readFromFile(file);
+      tasks.push_back(task);
+    } else {
+      TaskComponent* group = new TaskGroup();
+      group->readFromFile(file);
+      tasks.push_back(group);
+    }
+  }
+}
+

@@ -2,6 +2,8 @@
 
 #include <memory>
 #include <vector>
+#include <string>
+#include <fstream>
 
 #include "Task.h"
 #include "TaskComponent.h"
@@ -32,5 +34,7 @@ class TaskManager {
   void displayAllGroupName() const;
   void displayGroup(int id);
   void displayAllTaskName() const;
+  void writeToFile(const std::string& filename) const;
+  void readFromFile(const std::string& filename);
 
 };
