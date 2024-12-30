@@ -24,7 +24,7 @@ class TaskManager {
   void addTask(vector<string> data);
   void addTask(std::unique_ptr<TaskComponent> task);  // Add this method
 
-  void updateTask(int taskID);
+  void updateTask(TaskComponent* task, vector<string> data, vector<int> choice);
   void addTaskToGroup(TaskComponent* task, TaskGroup* group);
   void createTaskGroup(const std::string& title);
   TaskComponent* getTask(int id);

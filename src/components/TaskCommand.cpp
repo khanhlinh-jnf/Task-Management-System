@@ -108,7 +108,67 @@ void UpdateTaskCommand::execute() {
   int taskID;
   cout << "Please enter task ID to be updated: ";
   cin >> taskID;
-  taskManager->updateTask(taskID);
+
+  vector<string> data(5, "");
+  vector<int> record(5, -1);
+  TaskComponent* task = taskManager->getTask(taskID);
+  if (task) {
+    string temp;
+    int choice = -1;
+    cout << "Update task \n"
+         << "1. Set title\n"
+         << "2. Set description\n"
+         << "3. Set assignee\n"
+         << "4. Set status\n"
+         << "5. Set due date\n"
+         << "6. Save task\n"
+         << endl;
+    while (true) {
+      cout << "Enter choice: ";
+      cin >> choice;
+      cin.ignore();
+      switch (choice) {
+        case 1:
+          cout << "Enter title: ";
+          getline(cin, temp);
+          data[0] = temp;
+          record[choice] = 1;
+          break;
+        case 2:
+          cout << "Enter description: ";
+          getline(cin, temp);
+          data[1] = temp;
+          record[choice] = 1;
+          break;
+        case 3:
+          cout << "Enter assignee: ";
+          getline(cin, temp);
+          data[2] = temp;
+          record[choice] = 1;
+          break;
+        case 4:
+          cout << "Enter status: ";
+          getline(cin, temp);
+          data[3] = temp;
+          record[choice] = 1;
+          break;
+        case 5:
+          cout << "Enter due date: ";
+          getline(cin, temp);
+          data[4] = temp;
+          record[choice] = 1;
+          break;
+        case 6:
+          taskManager->updateTask(task, data, record);
+          return;
+        default:
+          cout << "Invalid choice!" << endl;
+          break;
+      }
+    }
+  } else {
+    cout << "Task not found!" << endl;
+  }
 }
 
 // DisplayTaskCommand implementation

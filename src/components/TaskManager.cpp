@@ -88,58 +88,25 @@ void TaskManager::removeTask(int id) {
   cout << BREAK << endl;
 }
 
-void TaskManager::updateTask(int taskId) {
-  TaskComponent* task = getTask(taskId);
+void TaskManager::updateTask(TaskComponent* task, vector<string> data, vector<int> choice) {
   if (task) {
-    string temp;
-    int choice = -1;
-    cout << "Update task \n"
-         << "1. Set title\n"
-         << "2. Set description\n"
-         << "3. Set assignee\n"
-         << "4. Set status\n"
-         << "5. Set due date\n"
-         << "6. Save task\n"
-         << endl;
-    while (true) {
-      cout << "Enter choice: ";
-      cin >> choice;
-      cin.ignore();
-      switch (choice) {
-        case 1:
-          cout << "Enter title: ";
-          getline(cin, temp);
-          task->setTitle(temp);
-          break;
-        case 2:
-          cout << "Enter description: ";
-          getline(cin, temp);
-          task->setDescription(temp);
-          break;
-        case 3:
-          cout << "Enter assignee: ";
-          getline(cin, temp);
-          task->setAssignee(temp);
-          break;
-        case 4:
-          cout << "Enter status: ";
-          getline(cin, temp);
-          task->setStatus(temp);
-          break;
-        case 5:
-          cout << "Enter due date: ";
-          getline(cin, temp);
-          task->setDueDate(temp);
-          break;
-        case 6:
-          cout << "Task " << task->getId() << " updated successfully!" << endl;
-          cout << BREAK << endl;
-          return;
-        default:
-          cout << "Invalid choice!" << endl;
-          break;
-      }
+    if (choice[0] == 1) {
+      task->setTitle(data[0]);
     }
+    if (choice[1] == 1) {
+      task->setDescription(data[1]);
+    }
+    if (choice[2] == 1) {
+      task->setAssignee(data[2]);
+    }
+    if (choice[3] == 1) {
+      task->setStatus(data[3]);
+    }
+    if (choice[4] == 1) {
+      task->setDueDate(data[4]);
+    }
+    cout << "Task " << task->getId() << " updated successfully!" << endl;
+    cout << BREAK << endl;
   } else {
     cout << "Task not found!" << endl;
   }
