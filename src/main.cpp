@@ -20,6 +20,7 @@ int main() {
   cmdObjects.push_back(new AddGroupToGroupCommand(manager));
 
   manager->readFromFile("tasks.txt");
+  
   int choice = -1;
   while (choice != 0) {
     cout << "Task Management System\n"

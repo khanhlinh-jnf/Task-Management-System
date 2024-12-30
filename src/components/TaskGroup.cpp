@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-
 TaskGroup::TaskGroup(const std::string& title, int id) : title(title), id(id) {}
 TaskGroup::TaskGroup() : title(""), id(0) {}
 
@@ -26,8 +25,9 @@ std::string TaskGroup::getTitle() const { return title; }
 void TaskGroup::display(int indent) const {
   std::string indentation(indent, ' ');
   displayName(indent);
+  std::cout << indentation << "----------------" << std::endl;
   for (const auto& task : tasks) {
-    task->display(indent + 2);
+    task->display(indent + 4);
   }
   std::cout << indentation << "----------------" << std::endl;
 }
@@ -61,12 +61,20 @@ std::string TaskGroup::getStatus() const { return ""; }
 std::string TaskGroup::getDueDate() const { return ""; }
 
 void TaskGroup::writeToFile(std::ofstream& file) const {
-  file << type << "\n"
-       << id << "\n"
-       << title << "\n"
-       << tasks.size() << "\n";
+  file << type << "\n" << id << "\n" << title << "\n";
+}
+
+void TaskGroup::writeGroupToFile(std::ofstream& file) const {
+  file << id << "\n";
+  file << tasks.size() << "\n";
   for (const auto& task : tasks) {
-    task->writeToFile(file);
+    if (task->getType() == 0) {
+      file << task->getType() << "\n";
+      file << task->getId() << "\n";
+    } else {
+      file << task->getType() << "\n";
+      file << task->getId() << "\n";
+    }
   }
 }
 
@@ -74,21 +82,4 @@ void TaskGroup::readFromFile(std::ifstream& file) {
   file >> id;
   file.ignore();
   std::getline(file, title);
-  int numTasks;
-  file >> numTasks;
-  int type;
-  for (int i = 0; i < numTasks; i++) {
-    file >> type;
-    file.ignore();
-    if (type == 0) {
-      TaskComponent* task = new Task();
-      task->readFromFile(file);
-      tasks.push_back(task);
-    } else {
-      TaskComponent* group = new TaskGroup();
-      group->readFromFile(file);
-      tasks.push_back(group);
-    }
-  }
 }
-

@@ -88,7 +88,8 @@ void TaskManager::removeTask(int id) {
   cout << BREAK << endl;
 }
 
-void TaskManager::updateTask(TaskComponent* task, vector<string> data, vector<int> choice) {
+void TaskManager::updateTask(TaskComponent* task, vector<string> data,
+                             vector<int> choice) {
   if (task) {
     if (choice[0] == 1) {
       task->setTitle(data[0]);
@@ -155,12 +156,19 @@ void TaskManager::writeToFile(const std::string& filename) const {
     cout << "Error opening file!" << endl;
     return;
   }
+  file << taskId << "\n";
+  file << groupId << "\n";
   file << tasks.size() << "\n";
   for (const auto& task : tasks) {
     task->writeToFile(file);
   }
-  file << taskId << "\n";
-  file << groupId << "\n";
+  file << "-\n";
+  for (const auto& task : tasks) {
+    if (task->getType() == 1) {
+      TaskGroup* group = dynamic_cast<TaskGroup*>(task.get());
+      group->writeGroupToFile(file);
+    }
+  }
   file.close();
 }
 
@@ -171,6 +179,8 @@ void TaskManager::readFromFile(const std::string& filename) {
     return;
   }
   int numTasks, type;
+  file >> taskId;
+  file >> groupId;
   file >> numTasks;
   for (int i = 0; i < numTasks; i++) {
     file >> type;
@@ -186,7 +196,54 @@ void TaskManager::readFromFile(const std::string& filename) {
     }
   }
 
-  file >> taskId;
-  file >> groupId;
+  string tempCheck;
+  file >> tempCheck;
+  file.ignore();
+  if (tempCheck != "-") {
+    cout << "Error: Incorrect file format." << endl;
+    return;
+  }
+
+  int tempId, size;
+
+  for (const auto& task : tasks) {
+    if (task->getType() == 1) {
+      TaskGroup* group = dynamic_cast<TaskGroup*>(task.get());
+      if (!group) {
+        cout << "Error: dynamic_cast failed for TaskGroup." << endl;
+        continue;
+      }
+      file >> tempId;
+      file.ignore();
+      file >> size;
+      file.ignore();
+      for (int j = 0; j < size; j++) {
+        file >> type;
+        file.ignore();
+        if (type == 0) {
+          int taskId;
+          file >> taskId;
+          file.ignore();
+          TaskComponent* tempTask = this->getTask(taskId);
+          if (!tempTask) {
+            cout << "Error: Task with ID " << taskId << " not found." << endl;
+            continue;
+          }
+          group->add(tempTask);
+        } else {
+          int groupId;
+          file >> groupId;
+          file.ignore();
+          TaskComponent* tempGroup = this->getGroup(groupId);
+          if (!tempGroup) {
+            cout << "Error: Group with ID " << groupId << " not found." << endl;
+            continue;
+          }
+          group->add(tempGroup);
+        }
+      }
+    }
+  }
   file.close();
+  cout << "File read successfully!" << endl;
 }

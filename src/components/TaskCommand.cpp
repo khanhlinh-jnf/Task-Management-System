@@ -84,7 +84,7 @@ void RemoveTaskCommand::execute() {
   }
 
   int taskID;
-  cout << "Please enter task ID to be removed: " << endl;
+  cout << "Please enter task ID to be removed: ";
   cin >> taskID;
   taskManager->removeTask(taskID);
 }
@@ -330,7 +330,7 @@ void DisplayGroupCommand::execute() {
   }
 
   int groupID;
-  cout << "Please enter group ID to be displayed: " << endl;
+  cout << "Please enter group ID to be displayed: ";
   cin >> groupID;
   taskManager->displayGroup(groupID);
 }

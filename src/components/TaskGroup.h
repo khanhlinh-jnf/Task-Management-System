@@ -38,5 +38,6 @@ class TaskGroup : public TaskComponent {
   std::string getStatus() const override;
   std::string getDueDate() const override;
   void writeToFile(std::ofstream& file) const override;
+  void writeGroupToFile(std::ofstream& file) const;
   void readFromFile(std::ifstream& file);
 };
