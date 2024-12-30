@@ -19,8 +19,8 @@ int main() {
   cmdObjects.push_back(new AddTaskToGroupCommand(manager));
   cmdObjects.push_back(new AddGroupToGroupCommand(manager));
 
-  manager->readFromFile("tasks.txt");
-  
+  manager->readFromFile("../assets/tasks.txt");
+
   int choice = -1;
   while (choice != 0) {
     cout << "Task Management System\n"
@@ -48,8 +48,7 @@ int main() {
     }
   }
 
-  //cmdObjects[10]->execute(); // Write to file
-  manager->writeToFile("tasks.txt");
+  manager->writeToFile("../assets/tasks.txt");
   
   return 0;
 }
