@@ -245,5 +245,4 @@ void TaskManager::readFromFile(const std::string& filename) {
     }
   }
   file.close();
-  cout << "File read successfully!" << endl;
 }

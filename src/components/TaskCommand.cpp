@@ -15,7 +15,7 @@ void AddTaskCommand::execute() {
     cout << "Task manager not linked!" << endl;
     return;
   }
-  
+
   vector<string> data(5, "");
   int choice = -1;
   string temp;
@@ -186,8 +186,16 @@ void DisplayTaskCommand::execute() {
     cout << "Task manager not linked!" << endl;
     return;
   }
-
-  taskManager->displayAllTasks();
+  int taskID;
+  cout << "Please enter task ID to be displayed: ";
+  cin >> taskID;
+  TaskComponent* task = taskManager->getTask(taskID);
+  if (task) {
+    task->display(0);
+  } else {
+    cout << "Task not found!" << endl;
+  }
+  cout << "-----------------------------------" << endl;
 }
 
 // CreateGroupCommand implementation
@@ -249,7 +257,8 @@ void AddTaskToGroupCommand::execute() {
     cout << "Task or group ID not found!" << endl;
     return;
   }
-  cout << "Added task " << taskID << " to group " << groupID << " successfully!" << endl;
+  cout << "Added task " << taskID << " to group " << groupID << " successfully!"
+       << endl;
   cout << "-----------------------------------" << endl;
 }
 
@@ -290,10 +299,9 @@ void AddGroupToGroupCommand::execute() {
     cout << "Group or parent group ID not found!" << endl;
     return;
   }
-  cout << "Added group " << groupID << " to parent group " << parentGroupID << " successfully!"
-       << endl;
+  cout << "Added group " << groupID << " to parent group " << parentGroupID
+       << " successfully!" << endl;
   cout << "-----------------------------------" << endl;
-
 }
 
 // DisplayGroupCommand implementation
@@ -355,4 +363,3 @@ void DisplayAllTaskNameCommand::execute() {
 
   taskManager->displayAllTaskName();
 }
-
