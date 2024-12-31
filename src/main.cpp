@@ -19,6 +19,13 @@ void displayMenu() {
   cout << "Enter your choice: ";
 }
 
+bool isNumber(const string& str) {
+  for (char const& c : str) {
+    if (!isdigit(c)) return false;
+  }
+  return true;
+}
+
 int main() {
   TaskManager* manager = TaskManager::getInstance();
 
@@ -38,18 +45,24 @@ int main() {
 
   manager->readFromFile("../assets/tasks.txt");
 
-  int choice = -1;
-  while (choice != 0) {
+  string choice = "-1";
+  int choosen = -1;
+  while (choosen != 0) {
     displayMenu();
     cin >> choice;
     cin.ignore();
     cout << "-----------------------------------" << endl;
-    if (choice > 0 && choice <= 10) {
-      cmdObjects[choice - 1]->execute();
-    } else if (choice == 0) {
-      cout << "Exiting..." << endl;
+    if (isNumber(choice)) {
+      choosen = stoi(choice);
+      if (choosen > 0 && choosen <= 10) {
+        cmdObjects[choosen - 1]->execute();
+      } else if (choosen == 0) {
+        cout << "Exiting..." << endl;
+      } else {
+        cout << "Invalid choice! Please try again.\n";
+      }
     } else {
-      cout << "Invalid choice! Please try again.\n";
+      cout << "Invalid choice! Please enter a number.\n";
     }
     cout << "-----------------------------------" << endl;
   }
