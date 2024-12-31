@@ -56,6 +56,8 @@ int main() {
       choosen = stoi(choice);
       if (choosen > 0 && choosen <= 10) {
         cmdObjects[choosen - 1]->execute();
+        manager->writeToFile("../assets/tasks.txt");
+
       } else if (choosen == 0) {
         cout << "Exiting..." << endl;
       } else {
