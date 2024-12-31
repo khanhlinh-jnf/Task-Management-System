@@ -141,6 +141,7 @@ void TaskManager::displayGroup(int id) {
   } else {
     cout << "Group not found!" << endl;
   }
+  cout << BREAK << endl;
 }
 
 void TaskManager::displayAllGroupName() const {

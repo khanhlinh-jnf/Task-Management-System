@@ -25,11 +25,13 @@ std::string TaskGroup::getTitle() const { return title; }
 void TaskGroup::display(int indent) const {
   std::string indentation(indent, ' ');
   displayName(indent);
-  std::cout << indentation << "----------------" << std::endl;
-  for (const auto& task : tasks) {
-    task->display(indent + 4);
+  if (tasks.size() != 0)
+    std::cout << indentation << "----------------" << std::endl;
+  for (int i = 0; i < tasks.size(); i++) {
+    tasks[i]->display(indent + 4);
+    if (i == tasks.size() - 1) break;
+    std::cout << indentation << "----------------" << std::endl;
   }
-  std::cout << indentation << "----------------" << std::endl;
 }
 
 void TaskGroup::displayName(int indent) const {
