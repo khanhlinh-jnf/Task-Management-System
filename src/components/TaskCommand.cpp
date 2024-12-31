@@ -216,7 +216,7 @@ void CreateGroupCommand::execute() {
 
   string title;
   cout << "Please enter group title: ";
-  cin >> title;
+  getline(cin, title);
   taskManager->createTaskGroup(title);
 }
 
